@@ -1,9 +1,50 @@
-import Slider from './modules/slider.js';
+import MainSlider from './modules/slider/slider-main.js';
+import MiniSlider from './modules/slider/slider-mini.js';
+import HansonController from "./modules/hansonBlock";
 import VideoPlayer from './modules/playVideo.js';
 
 window.addEventListener('DOMContentLoaded', () => {
-    const slider = new Slider('.page', '.next');
+    const slider = new MainSlider({btns: '.next', container: '.page'});
     slider.render();
+
+    const miniSlider = new MiniSlider({
+        container: '.showup__content-slider',
+        prev: '.showup__prev',
+        next: '.showup__next',
+        activeClass: 'card-active',
+        animate: true
+    });
+
+    miniSlider.init();
+
+    const modulesSlider = new MiniSlider({
+        container: '.modules__content-slider',
+        prev: '.modules__info-btns .slick-prev',
+        next: '.modules__info-btns .slick-next',
+        activeClass: 'card-active',
+        animate: true,
+        autoplay: true
+    });
+
+    modulesSlider.init();
+
+    const feedSlider = new MiniSlider({
+        container: '.feed__slider',
+        prev: '.feed__slider .slick-prev',
+        next: '.feed__slider .slick-next',
+        activeClass: 'feed__item-active'
+    });
+
+    feedSlider.init();
+
+    const hansonController = new HansonController('.hanson', 5000);
+
+    // допустим, ты переключаешь слайды и узнаёшь номер текущего
+    const currentSlide = 3;
+
+    if (hansonController.isAvailable()) {
+        hansonController.showOnSlide(currentSlide);
+    }
 
     const player = new VideoPlayer('.showup .play', '.overlay');
     player.init();

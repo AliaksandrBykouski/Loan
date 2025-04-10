@@ -1,36 +1,15 @@
-export default class Slider {
-    constructor(page, btns) {
-        this.page = document.querySelector(page);
-        if (!this.page) throw new Error(`Элемент ${page} не найден`);
+import Slider from './slider.js';
 
-        this.slides = Array.from(this.page.children);
-        this.btns = document.querySelectorAll(btns);
-        this.slideIndex = 1;
-        this.isAnimating = false;
-        this.animationDuration = 500;
 
-        this.touchStartX = 0;
-        this.touchEndX = 0;
+
+export default class MainSlider extends Slider {
+    constructor(btns) {
+        super(btns);
     }
-
     showSlides(n) {
         if (n > this.slides.length) this.slideIndex = 1;
         if (n < 1) this.slideIndex = this.slides.length;
-// для показа блока hanson
-        try {
-            this.hanson.style.opacity = '0';
 
-            if (n === 3 ) {
-                this.hanson.classList.add('animated');
-                setTimeout(() => {
-                    this.hanson.style.opacity = '1';
-                    this.hanson.classList.add('slideInUp');
-                }, 3000);
-            } else {
-                this.hanson.classList.remove('slideInUp');
-            }
-        } catch (error) {}
-//
         this.slides.forEach((slide, i) => {
             slide.style.transition = `opacity ${this.animationDuration}ms ease-in-out`;
             slide.style.opacity = '0';
@@ -54,7 +33,7 @@ export default class Slider {
     }
 
     addSwipeSupport() {
-        const target = this.page;
+        const target = this.container;
 
         target.addEventListener('touchstart', (e) => {
             this.touchStartX = e.changedTouches[0].screenX;
@@ -79,13 +58,6 @@ export default class Slider {
     }
 
     render() {
-        // делаем показ блока hanson на третьей странице
-        try {
-            this.hanson = document.querySelector('.hanson');
-        } catch (error) {
-            console.log(error);
-        }
-        //
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 this.plusSlides(1);
