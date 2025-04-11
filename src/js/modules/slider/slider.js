@@ -7,9 +7,8 @@ export default class Slider {
                     animate = false,
                     autoplay = false } = {}) {
         this.container = document.querySelector(container);
-        if (!this.container) throw new Error(`Элемент ${container} не найден`);
 
-        this.slides = Array.from(this.container.children);
+        try {this.slides = Array.from(this.container.children)} catch(e) {};
         this.btns = document.querySelectorAll(btns);
         this.next = document.querySelector(next);
         this.prev = document.querySelector(prev);

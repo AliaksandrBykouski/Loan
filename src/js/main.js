@@ -6,8 +6,20 @@ import Difference from './modules/difference.js';
 import Form from './modules/forms.js';
 
 window.addEventListener('DOMContentLoaded', () => {
-    const slider = new MainSlider({btns: '.next', container: '.page'});
-    slider.render();
+    try {
+        const slider = new MainSlider({
+            container: '.page',
+            btns: '.next-btn',
+            activeClass: 'active',
+            animate: true,
+            autoplay: false
+        });
+
+        slider.render();
+    } catch (e) {}
+
+    const modulePageSlider = new MainSlider({container: '.moduleapp', btns: '.next'});
+    modulePageSlider.render();
 
     const miniSlider = new MiniSlider({
         container: '.showup__content-slider',

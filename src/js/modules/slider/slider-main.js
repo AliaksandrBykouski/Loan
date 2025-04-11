@@ -57,7 +57,7 @@ export default class MainSlider extends Slider {
         }
     }
 
-    render() {
+    bindTriggers() {
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
                 this.plusSlides(1);
@@ -69,6 +69,15 @@ export default class MainSlider extends Slider {
 
             })
         });
+        document.querySelectorAll('.prevmodule').forEach(item => {
+            item.addEventListener('click', () => {
+                this.plusSlides(-1);
+            })
+        })
+    }
+
+    render() {
+
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') this.plusSlides(1);
@@ -77,5 +86,8 @@ export default class MainSlider extends Slider {
 
         this.addSwipeSupport();
         this.showSlides(this.slideIndex);
+        this.bindTriggers();
+
+
     }
 }
