@@ -1,35 +1,26 @@
-import MainSlider from './modules/slider/slider-main.js';
-import MiniSlider from './modules/slider/slider-mini.js';
-import HansonController from "./modules/hansonBlock";
-import VideoPlayer from './modules/playVideo.js';
-import Difference from './modules/difference.js';
-import Form from './modules/forms.js';
+import MainSlider from './modules/slider/slider-main';
+import MiniSlider from './modules/slider/slider-mini';
+import VideoPlayer from './modules/playVideo';
+import Difference from './modules/difference';
+import Form from './modules/forms';
+import ShowInfo from './modules/showInfo';
+import Download from './modules/download';
 
 window.addEventListener('DOMContentLoaded', () => {
-    try {
-        const slider = new MainSlider({
-            container: '.page',
-            btns: '.next-btn',
-            activeClass: 'active',
-            animate: true,
-            autoplay: false
-        });
-
-        slider.render();
-    } catch (e) {}
+    const slider = new MainSlider({btns: '.next', container: '.page'});
+    slider.render();
 
     const modulePageSlider = new MainSlider({container: '.moduleapp', btns: '.next'});
     modulePageSlider.render();
 
-    const miniSlider = new MiniSlider({
+    const showUpSlider = new MiniSlider({
         container: '.showup__content-slider',
         prev: '.showup__prev',
         next: '.showup__next',
         activeClass: 'card-active',
         animate: true
     });
-
-    miniSlider.init();
+    showUpSlider.init();
 
     const modulesSlider = new MiniSlider({
         container: '.modules__content-slider',
@@ -39,7 +30,6 @@ window.addEventListener('DOMContentLoaded', () => {
         animate: true,
         autoplay: true
     });
-
     modulesSlider.init();
 
     const feedSlider = new MiniSlider({
@@ -48,26 +38,15 @@ window.addEventListener('DOMContentLoaded', () => {
         next: '.feed__slider .slick-next',
         activeClass: 'feed__item-active'
     });
-
     feedSlider.init();
-
-    const hansonController = new HansonController('.hanson', 5000);
-
-    // допустим, ты переключаешь слайды и узнаёшь номер текущего
-    const currentSlide = 3;
-
-    if (hansonController.isAvailable()) {
-        hansonController.showOnSlide(currentSlide);
-    }
 
     new VideoPlayer('.showup .play', '.overlay').init();
     new VideoPlayer('.module__video-item .play', '.overlay').init();
 
-
     new Difference('.officerold', '.officernew', '.officer__card-item').init();
-
     new Form('.form').init();
 
+    new ShowInfo('.plus__content').init();
 
-
+    new Download('.download').init();
 });
